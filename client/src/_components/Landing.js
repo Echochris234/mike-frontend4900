@@ -23,10 +23,12 @@ export default function Landing() {
           <Segment basic padded="very">
             <h3>Welcome back to TweTwe{userName}</h3>
           </Segment>
-          <Button>
+          <Button primary basic>
             <Link to="/profile">Profile</Link>
           </Button>
           <Button
+            primary
+            basic
             onClick={() => {
               localStorage.setItem("userData", "");
               userData = "";
@@ -44,10 +46,10 @@ export default function Landing() {
         <Segment basic padded="very">
           <h3>Welcome to TweTwe!</h3>
         </Segment>
-        <Button>
+        <Button primary basic>
           <Link to="login">Login</Link>
         </Button>
-        <Button>
+        <Button primary basic>
           <Link to="/signup">Signup</Link>
         </Button>
       </div>
