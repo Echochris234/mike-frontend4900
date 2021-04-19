@@ -1,9 +1,9 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
-import Landing from "./_components/Landing.js";
-import Login from "./_components/Login.js";
-import Signup from "./_components/Signup.js";
-import Profile from "./_components/Profile.js";
+import Landing from "./_components/Home/Landing.js";
+import Login from "./_components/User/Login.js";
+import Signup from "./_components/User/Signup.js";
+import Profile from "./_components/Profile/Profile.js";
 import "./App.css";
 import "semantic-ui-css/semantic.min.css";
 
