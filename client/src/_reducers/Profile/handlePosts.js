@@ -9,7 +9,14 @@ const getPosts = (initData = { postsData: [] }, action) => {
         ...initData,
       };
     case "LIKE_POST":
-      return { initData };
+      const mapNewLikes = initData.result.map((post) => {
+        if (action.payload.data.result[0]._id === post._id) {
+          return { ...post, ...action.payload.data.result[0]._id };
+        } else {
+          return post;
+        }
+      });
+      return { ...initData, mapNewLikes };
     case "DELETE_POST":
       return { initData };
     default:

@@ -18,8 +18,6 @@ export default function Login() {
             onSubmit={(e) => {
               dispatch(login(user));
               history.push("/");
-              //history.go(0);
-              //window.location.reload();
             }}
           >
             <Form.Group>
