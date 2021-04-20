@@ -1,12 +1,12 @@
-const login = (initData = { userData: null }, action) => {
+const login = (initData = { userData: "" }, action) => {
   switch (action.type) {
     case "LOGIN":
-      localStorage.setItem("userInfo", action.payload.data.result._id);
       const accData = JSON.stringify(action.payload.data);
+      localStorage.setItem("userInfo", accData);
       return { ...initData, userData: accData };
     case "LOGOUT":
       localStorage.clear();
-      return { userData: null };
+      return { userData: "" };
     default:
       return initData;
   }

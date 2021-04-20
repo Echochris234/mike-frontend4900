@@ -9,7 +9,7 @@ import "semantic-ui-css/semantic.min.css";
 
 function App() {
   return (
-    <div className="App">
+    <div>
       <Switch>
         <Route exact path="/" component={Landing} />
       </Switch>

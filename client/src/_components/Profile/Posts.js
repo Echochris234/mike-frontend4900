@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { getPosts, deletePost } from "../../_actions/handlePosts";
 import { Item, Icon, Button } from "semantic-ui-react";
 
@@ -7,26 +8,34 @@ function Posts(props) {
   const id = props.id;
   const token = props.token;
   const currMax = parseInt(props.currMax);
-  console.log(currMax);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getPosts(id));
   }, [id, localStorage.getItem("posts"), dispatch]);
-
   const posts = useSelector((state) => state.getPosts.result) || [];
-  var size = posts.length;
   if (posts.length !== 0) {
     return (
       <div>
-        {console.log(currMax)}
-        <Item.Group centered relaxed="very">
+        <Item.Group relaxed="very">
           {posts.slice(0, currMax).map((post, index) => (
-            <div class={index}>
+            <div className={index}>
               <Item>
                 <Item.Image size="small" src="" />
                 <Item.Content>
-                  <Item.Header as="a">{post.author.name}</Item.Header>
+                  <Item.Header as="a">
+                    <Link
+                      to={{
+                        pathname: `/profile/${post.author.name}`,
+                        state: {
+                          id: post.author._id,
+                          token: token,
+                        },
+                      }}
+                    >
+                      {post.author.name}
+                    </Link>
+                  </Item.Header>
                   <Item.Description>{post.article}</Item.Description>
                   <Item.Extra>
                     {" "}
@@ -34,16 +43,13 @@ function Posts(props) {
                       <Icon name="star">{post.likes.length}</Icon>
                     </div>
                     <div>
-                      <Icon name="x">
-                        <Button
-                          onClick={(e) => {
-                            console.log(posts[index]._id);
-                            dispatch(deletePost(posts[index]._id), token);
-                          }}
-                        >
-                          Delete
-                        </Button>
-                      </Icon>
+                      <Button
+                        onClick={(e) => {
+                          dispatch(deletePost(posts[index]._id), token);
+                        }}
+                      >
+                        <Icon name="x">Delete</Icon>
+                      </Button>
                     </div>
                   </Item.Extra>
                 </Item.Content>

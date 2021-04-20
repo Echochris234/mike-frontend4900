@@ -17,7 +17,7 @@ export default function Login() {
   return (
     <div>
       <Segment basic padded textAlign="center">
-        <Grid centered>
+        <Grid>
           <Form
             onSubmit={(e) => {
               dispatch(signup(user));

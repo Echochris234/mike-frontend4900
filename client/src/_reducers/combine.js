@@ -1,8 +1,8 @@
 import { combineReducers } from "redux";
-import login from "./login";
-import signup from "./signup";
-import getPosts from "./getPosts";
-import getFollow from "./getFollow";
+import login from "./User/login";
+import signup from "./User/signup";
+import getPosts from "./Profile/handlePosts";
+import getFollow from "./Profile/getFollow";
 
 const combined = combineReducers({
   login,

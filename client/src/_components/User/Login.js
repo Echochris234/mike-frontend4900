@@ -3,7 +3,7 @@ import { Form, Grid, Segment, Button } from "semantic-ui-react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { login } from "../../_actions/auth";
-import "../App.css";
+import "../../App.css";
 
 export default function Login() {
   const [user, setUser] = useState({ email: "", password: "" });
@@ -11,13 +11,15 @@ export default function Login() {
   const history = useHistory();
 
   return (
-    <div className="App">
+    <div>
       <Segment basic padded textAlign="center">
-        <Grid centered>
+        <Grid>
           <Form
             onSubmit={(e) => {
               dispatch(login(user));
               history.push("/");
+              //history.go(0);
+              //window.location.reload();
             }}
           >
             <Form.Group>
