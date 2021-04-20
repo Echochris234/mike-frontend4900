@@ -8,9 +8,9 @@ const getPosts = (initData = { postsData: [] }, action) => {
         postsData: [...initData.result, action.payload.data],
         ...initData,
       };
-    case "DELETE_POST":
-      return { initData };
     case "LIKE_POST":
+      return { initData };
+    case "DELETE_POST":
       return { initData };
     default:
       return initData;

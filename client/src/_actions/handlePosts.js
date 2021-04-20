@@ -21,9 +21,12 @@ export const post = (token, postCont) => async (dispatch) => {
 export const likePost = (postId, token) => async (dispatch) => {
   const res = await axios.patch(
     `http://localhost:8000/posts/${postId}/like`,
-    {},
-    { headers: { Authorization: "Bearer" + token } }
+    null,
+    {
+      headers: { Authorization: "Bearer " + token },
+    }
   );
+  console.log(res);
   dispatch({
     type: "LIKE_POST",
     payload: res,
@@ -31,11 +34,9 @@ export const likePost = (postId, token) => async (dispatch) => {
 };
 
 export const deletePost = (postId, token) => async (dispatch) => {
-  const res = await axios.delete(
-    `http://localhost:8000/posts/${postId}`,
-    {},
-    { headers: { Authorization: "Bearer" + token } }
-  );
+  const res = await axios.delete(`http://localhost:8000/posts/${postId}`, {
+    headers: { Authorization: "Bearer " + token },
+  });
   dispatch({
     type: "DELETE_POST",
     payload: res,
