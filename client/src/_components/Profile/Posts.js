@@ -3,12 +3,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { getPosts, deletePost, likePost } from "../../_actions/handlePosts";
 import { Item, Icon, Button } from "semantic-ui-react";
+import { addBookmark } from "../../_actions/bookmarks";
 
 function Posts(props) {
   const id = props.id;
   const token = props.token;
-  console.log(id);
-  console.log(token);
   const currMax = parseInt(props.currMax);
   const dispatch = useDispatch();
 
@@ -22,7 +21,6 @@ function Posts(props) {
         <Item.Group relaxed="very">
           {posts.slice(0, currMax).map((post, index) => (
             <div className={index}>
-              {console.log(post)}
               <Item>
                 <Item.Image size="small" src="" />
                 <Item.Content>
@@ -60,6 +58,15 @@ function Posts(props) {
                         }}
                       >
                         Delete
+                      </Button>
+                    </div>
+                    <div>
+                      <Button
+                        onClick={(e) => {
+                          dispatch(addBookmark(id, posts[index]._id, token));
+                        }}
+                      >
+                        Bookmark Post
                       </Button>
                     </div>
                   </Item.Extra>
