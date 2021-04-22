@@ -26,7 +26,6 @@ export const likePost = (postId, token) => async (dispatch) => {
       headers: { Authorization: "Bearer " + token },
     }
   );
-  console.log(res);
   dispatch({
     type: "LIKE_POST",
     payload: res,

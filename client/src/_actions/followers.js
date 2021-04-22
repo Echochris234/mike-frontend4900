@@ -4,7 +4,6 @@ export const getFollowing = (follower) => async (dispatch) => {
   const res = await axios.post("http://localhost:8000/follow/followingcount", {
     follower,
   });
-  console.log(res);
   dispatch({
     type: "GET_FOLLOWING",
     payload: res,
