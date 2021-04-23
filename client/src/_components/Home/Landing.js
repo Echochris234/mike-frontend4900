@@ -6,6 +6,7 @@ import { useHistory } from "react-router-dom";
 import { logout } from "../../_actions/auth.js";
 import Login from "../User/Login";
 import Profile from "../Profile/Profile";
+import { removeBookmark } from "../../_actions/bookmarks";
 
 export default function Landing() {
   var [user, setUser] = useState(localStorage.getItem("userInfo"));
@@ -20,7 +21,6 @@ export default function Landing() {
         <Container>
           <Segment basic padded="very">
             <h3>{JSON.parse(user).result.name}</h3>
-
             <Button primary basic>
               <Link
                 to={{
@@ -43,6 +43,19 @@ export default function Landing() {
               }}
             >
               Logout
+            </Button>
+            <Button primary basic>
+              <Link
+                to={{
+                  pathname: "/bookmarks",
+                  state: {
+                    id: JSON.parse(user).result._id,
+                    token: JSON.parse(user).token,
+                  },
+                }}
+              >
+                Bookmarks
+              </Link>
             </Button>
           </Segment>
         </Container>
