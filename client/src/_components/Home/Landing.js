@@ -6,7 +6,6 @@ import { useHistory } from "react-router-dom";
 import { logout } from "../../_actions/auth.js";
 import Login from "../User/Login";
 import Profile from "../Profile/Profile";
-import { removeBookmark } from "../../_actions/bookmarks";
 
 export default function Landing() {
   var [user, setUser] = useState(localStorage.getItem("userInfo"));

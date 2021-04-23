@@ -1,22 +1,27 @@
 const getPosts = (initData = { postsData: [] }, action) => {
   switch (action.type) {
     case "GET_POSTS":
-      localStorage.setItem("posts", action.payload.data);
+      localStorage.setItem("posts", JSON.stringify(action.payload.data));
       return action.payload.data;
     case "CREATE_POST":
-      return {
-        postsData: [...initData.result, action.payload.data],
-        ...initData,
-      };
+      const newPostList = [];
+      newPostList.push(action.payload.data);
+      for (let i = 0; i < action.payload.data.length; i++) {
+        newPostList.push(action.payload.data[i]);
+      }
+      localStorage.setItem("posts", newPostList);
+      return { postsData: newPostList };
     case "LIKE_POST":
-      const mapNewLikes = initData.result.map((post) => {
-        if (action.payload.data.result[0]._id === post._id) {
-          return { ...post, ...action.payload.data.result[0]._id };
+      const mapNewLikes = [];
+      for (let i = 0; i < initData.result.length; i++) {
+        if (action.payload.data.result[0]._id !== initData.result[i]._id) {
+          mapNewLikes.push(initData.result[i]);
         } else {
-          return post;
+          mapNewLikes.push(action.payload.data.result[0]);
         }
-      });
-      return { ...initData, mapNewLikes };
+      }
+      localStorage.setItem("posts", mapNewLikes);
+      return { postsData: mapNewLikes };
     case "DELETE_POST":
       const mapNewPosts = [];
       for (let i = 0; i < initData.result.length; i++) {
@@ -24,6 +29,7 @@ const getPosts = (initData = { postsData: [] }, action) => {
           mapNewPosts.push(initData.result[i]);
         }
       }
+      localStorage.setItem("posts", mapNewPosts);
       return { postsData: mapNewPosts };
     default:
       return initData;

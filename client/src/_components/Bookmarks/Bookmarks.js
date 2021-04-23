@@ -15,11 +15,10 @@ function Bookmarks(props) {
 
   useEffect(() => {
     dispatch(getBookmarks(userID, token));
-  }, [userID, localStorage.getItem("bookmarks"), dispatch]);
+  }, [userID, token, localStorage.getItem("bookmarks"), dispatch]);
 
   const bookmarkIDs = useSelector((state) => state.bookmarks.bookmarks) || [];
   if (bookmarkIDs.length !== 0) {
-    console.log(bookmarkIDs);
     return (
       <div>
         <Item.Group relaxed="very">
