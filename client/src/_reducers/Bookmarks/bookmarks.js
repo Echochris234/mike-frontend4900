@@ -1,15 +1,19 @@
 const bookmarks = (initData = { bookmarks: [] }, action) => {
   switch (action.type) {
     case "GET_BOOKMARKS":
-      console.log(action.payload);
       localStorage.setItem("bookmarks", action.payload);
       return { bookmarks: action.payload };
     case "ADD_BOOKMARK":
-      console.log(action.payload.data);
-      return initData;
+      localStorage.setItem("bookmarks", action.payload);
+      return { bookmarks: action.payload };
     case "DELETE_BOOKMARK":
-      console.log(action.payload.data);
-      return initData;
+      const mapNewBookmarks = [];
+      for (let i = 0; i < initData.bookmarks.length; i++) {
+        if (initData.bookmarks[i]._id !== action.payload.data._id) {
+          mapNewBookmarks.push(initData.bookmarks[i]);
+        }
+      }
+      return { bookmarks: mapNewBookmarks };
     default:
       return initData;
   }

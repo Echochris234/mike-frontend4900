@@ -1,14 +1,15 @@
 import axios from "axios";
 
 export const getBookmarks = (userID, token) => async (dispatch) => {
-  const res = await axios.get(`http://localhost:8000/bookmarks/${userID}`, {
-    headers: { Authorization: "Bearer " + token },
-  });
-
-  console.log(res.data.result[0].bookmark);
+  const res = await axios.get(
+    `http://localhost:8000/posts/bookmarks/${userID}`,
+    {
+      headers: { Authorization: "Bearer " + token },
+    }
+  );
   dispatch({
     type: "GET_BOOKMARKS",
-    payload: res.data.result[0].bookmark,
+    payload: res.data.bookmarkedPosts,
   });
 };
 
@@ -21,7 +22,6 @@ export const addBookmark = (userID, postID, token) => async (dispatch) => {
     }
   );
 
-  console.log(res);
   dispatch({
     type: "ADD_BOOKMARK",
     payload: res,
