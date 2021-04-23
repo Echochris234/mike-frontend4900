@@ -38,6 +38,6 @@ export const deletePost = (postId, token) => async (dispatch) => {
   });
   dispatch({
     type: "DELETE_POST",
-    payload: res,
+    payload: postId,
   });
 };

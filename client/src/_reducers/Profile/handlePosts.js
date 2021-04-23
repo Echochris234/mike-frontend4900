@@ -18,7 +18,13 @@ const getPosts = (initData = { postsData: [] }, action) => {
       });
       return { ...initData, mapNewLikes };
     case "DELETE_POST":
-      return { initData };
+      const mapNewPosts = [];
+      for (let i = 0; i < initData.result.length; i++) {
+        if (initData.result[i]._id !== action.payload) {
+          mapNewPosts.push(initData.result[i]);
+        }
+      }
+      return { postsData: mapNewPosts };
     default:
       return initData;
   }

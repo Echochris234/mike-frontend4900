@@ -42,6 +42,7 @@ function Posts(props) {
                     {" "}
                     <div>
                       <Icon name="star">{post.likes.length}</Icon>
+                      <br />
                       <Button
                         onClick={(e) => {
                           dispatch(likePost(posts[index]._id, token));
@@ -51,7 +52,6 @@ function Posts(props) {
                       </Button>
                     </div>
                     <div>
-                      <Icon name="x"></Icon>
                       <Button
                         onClick={(e) => {
                           dispatch(deletePost(posts[index]._id, token));
