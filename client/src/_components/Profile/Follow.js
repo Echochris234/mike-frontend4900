@@ -1,23 +1,25 @@
-import React from "react";
-import { useDispatch } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { getFollower, getFollowing } from "../../_actions/followers";
 import { Card, Icon } from "semantic-ui-react";
 function Follow(props) {
   const id = props.id;
   const dispatch = useDispatch();
-  dispatch(getFollower(id));
-  dispatch(getFollowing(id));
-
+  useEffect(() => {
+    dispatch(getFollower(id));
+    dispatch(getFollowing(id));
+  }, [id, dispatch]);
+  const followCount = useSelector((state) => state.getFollow);
   return (
     <div>
       <Card>
         <Card.Content extra>
           <Icon name="user" />
-          {localStorage.getItem("followers")} Followers
+          {followCount.Followers} Followers
         </Card.Content>
         <Card.Content extra>
           <Icon name="user" />
-          {localStorage.getItem("following")} Following
+          {followCount.Following} Following
         </Card.Content>
       </Card>
     </div>

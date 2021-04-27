@@ -1,11 +1,9 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { useHistory } from "react-router";
-import { Form, Button, TextArea, Segment } from "semantic-ui-react";
-import { getPosts, post } from "../../_actions/handlePosts";
+import { Button, TextArea, Segment } from "semantic-ui-react";
+import { post } from "../../_actions/handlePosts";
 
 function CreatePost(props) {
-  const history = useHistory();
   const dispatch = useDispatch();
   const id = props.id;
   const token = props.token;

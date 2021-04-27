@@ -1,10 +1,6 @@
 const bookmarks = (initData = { bookmarks: [] }, action) => {
   switch (action.type) {
     case "GET_BOOKMARKS":
-      localStorage.setItem("bookmarks", JSON.stringify(action.payload));
-      return { bookmarks: action.payload };
-    case "ADD_BOOKMARK":
-      localStorage.setItem("bookmarks", action.payload);
       return { bookmarks: action.payload };
     case "DELETE_BOOKMARK":
       const mapNewBookmarks = [];

@@ -13,19 +13,14 @@ export const getBookmarks = (userID, token) => async (dispatch) => {
   });
 };
 
-export const addBookmark = (userID, postID, token) => async (dispatch) => {
-  const res = await axios.post(
+export const addBookmark = (userID, postID, token) => async () => {
+  await axios.post(
     `http://localhost:8000/bookmarks/${userID}`,
     { postID },
     {
       headers: { Authorization: "Bearer " + token },
     }
   );
-
-  dispatch({
-    type: "ADD_BOOKMARK",
-    payload: res,
-  });
 };
 
 export const removeBookmark = (userID, postID, token) => async (dispatch) => {

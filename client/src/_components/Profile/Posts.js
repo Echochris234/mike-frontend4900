@@ -13,8 +13,8 @@ function Posts(props) {
 
   useEffect(() => {
     dispatch(getPosts(id));
-  }, [id, localStorage.getItem("posts"), dispatch]);
-  const posts = useSelector((state) => state.getPosts.result) || [];
+  }, [id, dispatch]);
+  const posts = useSelector((state) => state.getPosts.postsData) || [];
   if (posts.length !== 0) {
     return (
       <div>
@@ -63,7 +63,7 @@ function Posts(props) {
                     <div>
                       <Button
                         onClick={(e) => {
-                          dispatch(addBookmark(id, posts[index]._id, token));
+                          dispatch(addBookmark(id, posts[index], token));
                         }}
                       >
                         Bookmark Post

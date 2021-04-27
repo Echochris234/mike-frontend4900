@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getBookmarks } from "../../_actions/bookmarks.js";
 import { Item, Button, Icon } from "semantic-ui-react";
@@ -9,13 +9,10 @@ function Bookmarks(props) {
   const userID = props.id || props.location.state.id;
   const token = props.token || props.location.state.token;
   const dispatch = useDispatch();
-  /*const [bookmarks, updateBookmarks] = useState(
-    localStorage.getItem("bookmarks")
-  );*/
 
   useEffect(() => {
     dispatch(getBookmarks(userID, token));
-  }, [userID, token, localStorage.getItem("bookmarks"), dispatch]);
+  }, [userID, token, dispatch]);
 
   const bookmarkIDs = useSelector((state) => state.bookmarks.bookmarks) || [];
   if (bookmarkIDs.length !== 0) {
