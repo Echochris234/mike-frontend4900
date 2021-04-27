@@ -1,6 +1,6 @@
 ## Code from https://github.com/elisvcodes/TweTwe/tree/main/server
 
-###### **Additions**
+### **Additions**
 
 ###### controller/bookmarks.js
 
@@ -8,7 +8,7 @@
 
 ###### routes/bookmarks.js
 
-###### **Changes**
+### **Changes**
 
 ###### controller/post.js
 
