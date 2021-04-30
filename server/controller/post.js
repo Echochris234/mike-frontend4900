@@ -1,15 +1,33 @@
 const Post = require("../models/post");
 const Bookmark = require("../models/bookmarks");
+const fs = require("fs");
 
-const createPost = async (req, res) => {
-  try {
-    const author = req.user._id;
-    const post = new Post(req.body);
-    post.author = author;
-    await post.save();
-    res.status(201).json(post);
-  } catch (error) {
-    res.status(500).json(error);
+const createPost = async (req, res, next) => {
+  const content = req.file.buffer.toString("base64");
+  if (req.file && req.body.postArticle) {
+    try {
+      const author = req.body.postUserId;
+      console.log(typeof req.body.postArticle);
+      const post = new Post({ article: req.body.postArticle });
+      post.author = author;
+      post.file = content;
+      await post.save();
+      res.status(201).json(post);
+    } catch (error) {
+      res.status(500).json(error);
+    }
+  } else if (req.file) {
+    try {
+      const author = req.body.postUserId;
+      const post = new Post();
+      post.author = author;
+      post.file = content;
+
+      await post.save();
+      res.status(201).json(post);
+    } catch (error) {
+      res.status(500).json(error);
+    }
   }
 };
 

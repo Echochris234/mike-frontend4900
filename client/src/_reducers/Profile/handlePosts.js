@@ -1,11 +1,11 @@
 const getPosts = (initData = { postsData: [] }, action) => {
   switch (action.type) {
     case "GET_POSTS":
-      console.log(action.payload.data.result);
+      return { postsData: action.payload.data.result };
+    case "GET_ALL_POSTS":
       return { postsData: action.payload.data.result };
     case "CREATE_POST":
       const newPostList = [];
-      console.log(action.payload.data);
       newPostList.push(action.payload.data);
       for (let i = 0; i < initData.postsData.length; i++) {
         newPostList.push(initData.postsData[i]);

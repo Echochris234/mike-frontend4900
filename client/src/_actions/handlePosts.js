@@ -1,9 +1,18 @@
 import axios from "axios";
 
-export const getPosts = (userId) => async (dispatch) => {
+export const getUserPosts = (userId) => async (dispatch) => {
   const res = await axios.get(`http://localhost:8000/posts/${userId}`);
   dispatch({
     type: "GET_POSTS",
+    payload: res,
+  });
+};
+
+export const getPosts = () => async (dispatch) => {
+  const res = await axios.get("http://localhost:8000/posts");
+  console.log(res);
+  dispatch({
+    type: "GET_ALL_POSTS",
     payload: res,
   });
 };
@@ -12,6 +21,7 @@ export const post = (token, postCont) => async (dispatch) => {
   const res = await axios.post("http://localhost:8000/posts", postCont, {
     headers: { Authorization: "Bearer " + token },
   });
+  console.log(res);
   dispatch({
     type: "CREATE_POST",
     payload: res,

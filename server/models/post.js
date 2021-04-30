@@ -1,10 +1,9 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const postSchema = new mongoose.Schema(
   {
     article: {
       type: String,
-      required: true,
     },
     likes: [
       {
@@ -15,21 +14,24 @@ const postSchema = new mongoose.Schema(
     comments: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Comment',
+        ref: "Comment",
       },
     ],
     author: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'User',
+      ref: "User",
       required: true,
+    },
+    file: {
+      type: String,
     },
   },
   { timestamps: true }
 );
 
 // Will be used for searching
-postSchema.index({ article: 'text' });
+postSchema.index({ article: "text" });
 
-const Post = mongoose.model('Post', postSchema);
+const Post = mongoose.model("Post", postSchema);
 
 module.exports = Post;
