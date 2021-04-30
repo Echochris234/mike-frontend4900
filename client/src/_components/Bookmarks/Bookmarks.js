@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getBookmarks } from "../../_actions/bookmarks.js";
+import { getBookmarks } from "./../../_actions/bookmarks.js";
 import { Item, Button, Icon } from "semantic-ui-react";
 import { removeBookmark } from "../../_actions/bookmarks";
 import { likePost } from "../../_actions/handlePosts";
@@ -33,6 +33,7 @@ function Bookmarks(props) {
                       <Button
                         onClick={(e) => {
                           dispatch(likePost(bookmarkIDs[index]._id, token));
+                          window.location.reload();
                         }}
                       >
                         Like
@@ -61,5 +62,3 @@ function Bookmarks(props) {
 }
 
 export default Bookmarks;
-//get bookmarks and delete bookmarks
-//add bookmarks needs to be added to outside posts, not inside here
