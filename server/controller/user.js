@@ -1,5 +1,7 @@
 const User = require("../models/user");
 const ProfilePic = require("../models/profilePic");
+const path = require("path");
+const fs = require("fs");
 
 const createUser = async (req, res) => {
   try {
@@ -46,27 +48,29 @@ const deleteUser = async (req, res) => {
   }
 };
 
-const setProfilePic = async (req, res) => {
-  console.log(req.files);
-  //const { name, data } = req.body;
-  //console.log(name + " " + data);
-  /*try {
-    ProfilePic.updateOne(
-      { userID: req.user._id },
-      { profilePic: req.body.profilePic },
-      { upsert: true }
-    );
-    res.status(201).json();
-  } catch (error) {
-    res.status(500).json(error);
-  }*/
+const setProfilePic = async (req, res, next) => {
+  const pic = new ProfilePic({
+    userID: req.body.name,
+    picName: req.body.name + ".png",
+  });
+  ProfilePic.updateOne(
+    { userID: req.body.name },
+    { picName: req.body.name + ".png" },
+    { new: true, upsert: true }
+  );
+  res.status(200).json();
 };
 
 const getProfilePic = async (req, res) => {
   ProfilePic.findOne({ userID: req.body.userID }).exec((err, result) => {
     if (err) return res.status(404).json({ msg: "user was not found" });
-    console.log(result);
-    return res.status(200).json(result);
+    let parentPath = path.resolve("./public/profilePics");
+    const content = fs.readFileSync(
+      parentPath + "\\" + req.body.userID + ".png",
+      { encoding: "base64" }
+    );
+
+    return res.send(content);
   });
 };
 
