@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Button, Container, Segment } from "semantic-ui-react";
 import { useHistory } from "react-router-dom";
 import { logout } from "../../_actions/auth.js";
 import Login from "../User/Login";
+import Posts from "../Profile/Posts";
 import Profile from "../Profile/Profile";
+import { getPosts } from "../../_actions/handlePosts.js";
+import CreatePost from "./CreatePost";
 
 export default function Landing() {
-  var [user, setUser] = useState(localStorage.getItem("userInfo"));
+  const [user, setUser] = useState(localStorage.getItem("userInfo"));
   useEffect(() => {
     setUser(localStorage.getItem("userInfo"));
   }, []);
@@ -23,7 +26,7 @@ export default function Landing() {
             <Button primary basic>
               <Link
                 to={{
-                  pathname: "/profile",
+                  pathname: `/profile/${JSON.parse(user).result.name}`,
                   state: {
                     id: JSON.parse(user).result._id,
                     token: JSON.parse(user).token,
@@ -58,7 +61,8 @@ export default function Landing() {
             </Button>
           </Segment>
         </Container>
-        <Profile
+        <Posts id={JSON.parse(user).result._id} location="landing" />
+        <CreatePost
           id={JSON.parse(user).result._id}
           token={JSON.parse(user).token}
         />
@@ -81,3 +85,9 @@ export default function Landing() {
     );
   }
 }
+/*
+<Profile
+          id={JSON.parse(user).result._id}
+          token={JSON.parse(user).token}
+        />
+*/

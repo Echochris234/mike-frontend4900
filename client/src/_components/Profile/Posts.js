@@ -1,19 +1,30 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { getPosts, deletePost, likePost } from "../../_actions/handlePosts";
-import { Item, Icon, Button } from "semantic-ui-react";
+import {
+  getUserPosts,
+  getPosts,
+  deletePost,
+  likePost,
+} from "../../_actions/handlePosts";
+import { Item, Icon, Button, Segment } from "semantic-ui-react";
 import { addBookmark } from "../../_actions/bookmarks";
 
 function Posts(props) {
   const id = props.id;
-  const token = props.token;
-  const currMax = parseInt(props.currMax);
+  const token = JSON.parse(localStorage.getItem("userInfo")).token;
+  const [currMax, setcurrMax] = useState(10);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getPosts(id));
-  }, [id, dispatch]);
+    if (props.location === "landing") {
+      dispatch(getPosts());
+    }
+    if (props.location === "profile") {
+      dispatch(getUserPosts(id));
+    }
+  }, []);
+
   const posts = useSelector((state) => state.getPosts.postsData) || [];
   if (posts.length !== 0) {
     return (
@@ -38,6 +49,11 @@ function Posts(props) {
                     </Link>
                   </Item.Header>
                   <Item.Description>{post.article}</Item.Description>
+                  <Item>
+                    {post.file && (
+                      <img src={`data:image/png;base64,${post.file}`}></img>
+                    )}
+                  </Item>
                   <Item.Extra>
                     {" "}
                     <div>
@@ -75,6 +91,30 @@ function Posts(props) {
             </div>
           ))}
         </Item.Group>
+        <Segment>
+          <Button
+            primary
+            basic
+            onClick={() => {
+              setcurrMax(currMax + 5);
+            }}
+          >
+            Load More...
+          </Button>
+          <Button
+            primary
+            basic
+            onClick={() => {
+              if (currMax <= 5) {
+                setcurrMax(1);
+              } else {
+                setcurrMax(currMax - 5);
+              }
+            }}
+          >
+            Load Less...
+          </Button>
+        </Segment>
       </div>
     );
   } else {
