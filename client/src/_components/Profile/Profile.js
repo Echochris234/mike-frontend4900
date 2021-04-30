@@ -11,18 +11,30 @@ import { uploadPic, getPic } from "../../_actions/profilePic.js";
 function Profile(props) {
   const history = useHistory();
   const dispatch = useDispatch();
+  console.log(props);
   const id =
-    props.id || JSON.parse(localStorage.getItem("userInfo")).result._id;
+    props.location.state.id ||
+    JSON.parse(localStorage.getItem("userInfo")).result._id;
   const token =
     props.token || JSON.parse(localStorage.getItem("userInfo")).token;
-  const [currMax, setcurrMax] = useState(10);
   const [file, updateFile] = useState(null);
   useEffect(() => {
     dispatch(getPic(id));
   }, [id, dispatch]);
-  const profilePic = useSelector((state) => state.profilePic.prof) || "";
+  const profilePic = useSelector((state) => state.profilePic.prof.data) || "";
+  console.log(profilePic);
   return (
     <div>
+      <img src={`data:image/png;base64,${profilePic}`} />
+      <Button
+        primary
+        basic
+        onClick={() => {
+          history.push("/", setTimeout(400));
+        }}
+      >
+        Home
+      </Button>
       <Segment>
         <Form>
           <Form.Field>
@@ -37,6 +49,10 @@ function Profile(props) {
             basic
             onClick={(e) => {
               let formData = new FormData();
+              formData.append(
+                "name",
+                JSON.parse(localStorage.getItem("userInfo")).result._id
+              );
               formData.append("image", file);
               dispatch(uploadPic(formData, id, token));
             }}
@@ -46,31 +62,7 @@ function Profile(props) {
         </Form>
       </Segment>
       <Follow id={id} />
-      <Posts id={id} token={token} currMax={currMax} />
-      <Segment>
-        <Button
-          primary
-          basic
-          onClick={() => {
-            setcurrMax(currMax + 5);
-          }}
-        >
-          Load More...
-        </Button>
-        <Button
-          primary
-          basic
-          onClick={() => {
-            if (currMax <= 5) {
-              setcurrMax(1);
-            } else {
-              setcurrMax(currMax - 5);
-            }
-          }}
-        >
-          Load Less...
-        </Button>
-      </Segment>
+      <Posts id={id} location="profile" />
       <CreatePost id={id} token={token} />
 
       <Segment basic padded="very">

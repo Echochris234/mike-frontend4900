@@ -6,13 +6,9 @@ const profilePicSchema = new mongoose.Schema({
     ref: "User",
     required: true,
   },
-  profilePic: {
-    type: Buffer,
-    required: true,
-  },
-  picType: {
+  picName: {
     type: String,
-    required: true,
+    require: true,
   },
 });
 
