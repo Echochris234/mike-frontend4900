@@ -1,21 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Button, Container, Segment } from "semantic-ui-react";
-import { useHistory } from "react-router-dom";
 import { logout } from "../../_actions/auth.js";
 import Login from "../User/Login";
 import Posts from "../Profile/Posts";
-import Profile from "../Profile/Profile";
-import { getPosts } from "../../_actions/handlePosts.js";
 import CreatePost from "./CreatePost";
 
 export default function Landing() {
   const [user, setUser] = useState(localStorage.getItem("userInfo"));
+  const userCheck = localStorage.getItem("userInfo");
   useEffect(() => {
     setUser(localStorage.getItem("userInfo"));
-  }, []);
-  const history = useHistory();
+  }, [userCheck]);
   const dispatch = useDispatch();
   if (user) {
     return (
@@ -41,7 +38,7 @@ export default function Landing() {
               basic
               onClick={(e) => {
                 dispatch(logout(JSON.parse(user).token));
-                history.push("/");
+                setUser("");
               }}
             >
               Logout
@@ -85,9 +82,3 @@ export default function Landing() {
     );
   }
 }
-/*
-<Profile
-          id={JSON.parse(user).result._id}
-          token={JSON.parse(user).token}
-        />
-*/

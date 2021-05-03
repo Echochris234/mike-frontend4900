@@ -17,12 +17,15 @@ export const signup = (user) => async (dispatch) => {
 };
 
 export const logout = (token) => async (dispatch) => {
-  await axios.post(
+  const res = await axios.post(
     "http://localhost:8000/auth/logout",
     {},
-    { headers: { Authorization: "Bearer " + token } }
+    {
+      headers: { Authorization: "Bearer " + token },
+    }
   );
   dispatch({
     type: "LOGOUT",
+    payload: res,
   });
 };
