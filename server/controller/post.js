@@ -1,13 +1,12 @@
 const Post = require("../models/post");
 const Bookmark = require("../models/bookmarks");
-const fs = require("fs");
 
 const createPost = async (req, res, next) => {
-  const content = req.file.buffer.toString("base64");
+  let content;
   if (req.file && req.body.postArticle) {
     try {
+      content = req.file.buffer.toString("base64");
       const author = req.body.postUserId;
-      console.log(typeof req.body.postArticle);
       const post = new Post({ article: req.body.postArticle });
       post.author = author;
       post.file = content;
@@ -18,6 +17,7 @@ const createPost = async (req, res, next) => {
     }
   } else if (req.file) {
     try {
+      content = req.file.buffer.toString("base64");
       const author = req.body.postUserId;
       const post = new Post();
       post.author = author;
@@ -28,13 +28,23 @@ const createPost = async (req, res, next) => {
     } catch (error) {
       res.status(500).json(error);
     }
+  } else if (req.body.postArticle) {
+    try {
+      const author = req.body.postUserId;
+      const post = new Post({ article: req.body.postArticle });
+      post.author = author;
+      await post.save();
+      res.status(201).json(post);
+    } catch (error) {
+      res.status(500).json(error);
+    }
   }
 };
 
 const getPosts = async (req, res) => {
   Post.find({})
-    .sort({ createdAt: -1 })
     .populate("author")
+    .sort({ createdAt: -1 })
     .exec((err, result) => {
       if (err) return res.status(500).json(err);
       res.status(200).json({ result });

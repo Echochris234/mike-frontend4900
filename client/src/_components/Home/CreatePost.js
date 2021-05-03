@@ -1,14 +1,15 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { Button, TextArea, Segment, Form } from "semantic-ui-react";
+import { Button, Segment, Form } from "semantic-ui-react";
 import { post } from "../../_actions/handlePosts";
 
 function CreatePost(props) {
   const dispatch = useDispatch();
   const id = props.id;
   const token = props.token;
-  const [userPost, updateUser] = useState();
+  const [userPost, updateUser] = useState("");
   const [userFile, updateFile] = useState(null);
+  console.log(userFile);
   return (
     <div>
       <Form>
@@ -42,7 +43,8 @@ function CreatePost(props) {
               formData.append("postExt", userFile);
             }
             dispatch(post(token, formData));
-            updateUser();
+            updateUser("");
+            updateFile(e.target.null);
           }}
         >
           Create Post
