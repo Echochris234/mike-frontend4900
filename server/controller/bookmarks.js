@@ -1,7 +1,6 @@
 const Bookmark = require("../models/bookmarks");
 
 const createBookmark = async (req, res) => {
-  console.log(req.body);
   try {
     await Bookmark.updateOne(
       {
