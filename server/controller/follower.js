@@ -1,7 +1,9 @@
 const Follower = require("../models/follower");
 
 const follow = (req, res) => {
-  const follow = new Follower(req.body);
+  const follow = new Follower();
+  follow.following = req.body.profileID;
+  follow.follower = req.body.userID;
   follow.save((err, result) => {
     if (err) return res.status(400).json(err);
     res.status(201).json(result);
@@ -24,8 +26,8 @@ const followingCount = (req, res) => {
 
 const following = (req, res) => {
   Follower.find({
-    following: req.body.following,
-    follower: req.body.follower,
+    following: req.body.profileID,
+    follower: req.body.userID,
   }).exec((err, result) => {
     if (err) return res.status(400).json(err);
     let following = false;
@@ -38,10 +40,11 @@ const following = (req, res) => {
 
 const unfollow = (req, res) => {
   Follower.findOneAndDelete({
-    following: req.body.following,
-    follower: req.body.follower,
+    following: req.body.profileID,
+    follower: req.body.userID,
   }).exec((err, result) => {
     if (err) return res.status(400).json(err);
+    console.log(result);
     res.status(200).json(result);
   });
 };
