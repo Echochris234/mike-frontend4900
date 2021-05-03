@@ -49,28 +49,24 @@ const deleteUser = async (req, res) => {
 };
 
 const setProfilePic = async (req, res, next) => {
-  const pic = new ProfilePic({
-    userID: req.body.name,
-    picName: req.body.name + ".png",
-  });
+  const newPicName = req.file.buffer.toString("base64");
   ProfilePic.updateOne(
-    { userID: req.body.name },
-    { picName: req.body.name + ".png" },
-    { new: true, upsert: true }
+    { userID: req.params.id },
+    { picName: newPicName },
+    { new: true, upsert: true },
+    (err, result) => {
+      console.log(err);
+      console.log(result);
+    }
   );
-  res.status(200).json();
+  res.status(201).json();
 };
 
 const getProfilePic = async (req, res) => {
+  console.log(req.body.userID);
   ProfilePic.findOne({ userID: req.body.userID }).exec((err, result) => {
     if (err) return res.status(404).json({ msg: "user was not found" });
-    let parentPath = path.resolve("./public/profilePics");
-    const content = fs.readFileSync(
-      parentPath + "\\" + req.body.userID + ".png",
-      { encoding: "base64" }
-    );
-
-    return res.send(content);
+    res.status(200).json({ result });
   });
 };
 

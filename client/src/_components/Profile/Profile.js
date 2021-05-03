@@ -11,7 +11,6 @@ import { uploadPic, getPic } from "../../_actions/profilePic.js";
 function Profile(props) {
   const history = useHistory();
   const dispatch = useDispatch();
-  console.log(props);
   const id =
     props.location.state.id ||
     JSON.parse(localStorage.getItem("userInfo")).result._id;
@@ -25,7 +24,9 @@ function Profile(props) {
   console.log(profilePic);
   return (
     <div>
-      <img src={`data:image/png;base64,${profilePic}`} />
+      {profilePic.result && (
+        <img src={`data:image/png;base64,${profilePic.result.picName}`} />
+      )}
       <Button
         primary
         basic
