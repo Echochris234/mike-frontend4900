@@ -1,7 +1,5 @@
 const User = require("../models/user");
 const ProfilePic = require("../models/profilePic");
-const path = require("path");
-const fs = require("fs");
 
 const createUser = async (req, res) => {
   try {

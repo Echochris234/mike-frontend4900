@@ -50,7 +50,6 @@ function Follow(props) {
                       token
                     )
                   );
-                  //following = !following;
                 }}
               >
                 Follow
@@ -65,7 +64,6 @@ function Follow(props) {
                       token
                     )
                   );
-                  //following = !following;
                 }}
               >
                 Unfollow

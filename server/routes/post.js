@@ -12,17 +12,6 @@ const {
   getBookmarkedPosts,
 } = require("../controller/post");
 const auth = require("../middleware/auth");
-
-/*const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "public/posts/");
-  },
-  filename: function (req, file, cb) {
-    cb(null, `${req.body.postArticle}.png`);
-  },
-});
-const upload = multer({ storage: storage });
-*/
 const upload = multer({});
 if (auth) {
   router.post("/", upload.single("postExt"), createPost);

@@ -10,17 +10,6 @@ const {
   getProfilePic,
 } = require("../controller/user");
 const auth = require("../middleware/auth");
-
-/*const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "public/profilePics/");
-  },
-  filename: function (req, file, cb) {
-    cb(null, `${req.body.name}.png`);
-  },
-});
-const upload = multer({ storage: storage });
-*/
 const upload = multer({});
 if (auth) {
   router.post("/pics/:id", upload.single("image"), setProfilePic);
