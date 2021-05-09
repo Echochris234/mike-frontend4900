@@ -21,7 +21,6 @@ function Profile(props) {
     dispatch(getPic(id));
   }, [id, dispatch]);
   const profilePic = useSelector((state) => state.profilePic.prof.data) || "";
-  console.log(profilePic);
   return (
     <div>
       {profilePic.result && (
@@ -56,6 +55,7 @@ function Profile(props) {
               );
               formData.append("image", file);
               dispatch(uploadPic(formData, id, token));
+              dispatch(getPic(id));
             }}
           >
             Set Profile Picture

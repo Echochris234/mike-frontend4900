@@ -9,7 +9,6 @@ function CreatePost(props) {
   const token = props.token;
   const [userPost, updateUser] = useState("");
   const [userFile, updateFile] = useState(null);
-  console.log(userFile);
   return (
     <div>
       <Form>

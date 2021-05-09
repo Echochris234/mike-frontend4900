@@ -10,6 +10,7 @@ export const uploadPic = (pic, userID, token) => async (dispatch) => {
       },
     }
   );
+  console.log(res);
   dispatch({
     type: "UPLOAD_PIC",
     payload: res,

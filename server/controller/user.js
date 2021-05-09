@@ -57,7 +57,7 @@ const setProfilePic = async (req, res, next) => {
       console.log(result);
     }
   );
-  res.status(201).json();
+  res.status(201).json(newPicName);
 };
 
 const getProfilePic = async (req, res) => {

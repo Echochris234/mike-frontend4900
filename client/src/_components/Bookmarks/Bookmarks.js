@@ -33,7 +33,7 @@ function Bookmarks(props) {
                       <Button
                         onClick={(e) => {
                           dispatch(likePost(bookmarkIDs[index]._id, token));
-                          window.location.reload();
+                          dispatch(getBookmarks(userID, token));
                         }}
                       >
                         Like

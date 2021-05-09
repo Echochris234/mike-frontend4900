@@ -44,7 +44,6 @@ const unfollow = (req, res) => {
     follower: req.body.userID,
   }).exec((err, result) => {
     if (err) return res.status(400).json(err);
-    console.log(result);
     res.status(200).json(result);
   });
 };

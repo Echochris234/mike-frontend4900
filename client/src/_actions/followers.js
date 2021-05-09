@@ -28,7 +28,6 @@ export const checkFollowing = (userID, profileID, token) => async (
     { userID, profileID },
     { headers: { Authorization: "Bearer " + token } }
   );
-  console.log(res);
   dispatch({ type: "FOLLOWING_STATUS", payload: res });
 };
 
